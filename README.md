@@ -30,7 +30,7 @@ pela lógica da aplicação, só adicionar os votos no ENUM</p>
 <h5> Criar database </h5>
 <p>Neste caso, vai precisar do MySql e RabbitMq Instalado e, caso precise, aponte variáveis de acordo com o aplication.yml</p>
 <p> No caso, precisa criar uma base de dados no mysql do nome 'assembly' para poder usar o projeto </p>
-<p> Poderá usar o Adminer http://192.168.0.11:8080/ para isto </p>
+<p> Poderá usar o Adminer http://localhost:9998/ para isto </p>
 
 <h4> Docker Compose </h4>
 <p>Com o docker instalado na máquina, execute o comando dentro da pasta do projeto:<p>
@@ -52,7 +52,7 @@ http://localhost:8090/
 <h2>Dozzle Logs Container</h2>
 
 <p> O docker-compose conta com o Dozzle, projeto do Amir Raminfar (https://github.com/amir20/dozzle) caso precise utilizar para ver logs de containers </p>
-<p> link: http://192.168.0.11:9999/ </p>
+<p> link: http://localhost:9999/ </p>
 
 #### Tarefa 1
 
