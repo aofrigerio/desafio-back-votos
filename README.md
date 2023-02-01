@@ -66,11 +66,6 @@ no Heroku não estava funcionando no momento do projeto </p>
 #### Tarefa 4
 <p> Extratégia foi usada as boas práticas de api/v1 presentes nos resources </p>
 
-## Futuras implementações
-<ul>Criar o Exception Handlers para o SQL Constrains e o Validations</ul>
-<ul>Implementar todos os Testes unitários</ul>
-
-
 ---
 
 # Desafio Técnico
