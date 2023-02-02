@@ -50,7 +50,7 @@ public class VotesServiceImpl implements VoteService {
 		AssociateEntity associate = associateService.findOne(voteDTO.idAssociate())
 				.orElseThrow(NotFoundEntityException::new);
 		
-//		validationCpfVote(associate);
+		validationCpfVote(associate.getCpf());
 		
 		SessionEntity session = sessionService.findSessionExpirated(voteDTO.idSession());
 		
