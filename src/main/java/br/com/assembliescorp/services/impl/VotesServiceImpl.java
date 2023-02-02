@@ -16,6 +16,7 @@ import br.com.assembliescorp.domain.entities.VoteEntity;
 import br.com.assembliescorp.domain.projections.VoteGroupProjection;
 import br.com.assembliescorp.domain.repositories.VoteRepository;
 import br.com.assembliescorp.resources.exceptions.NotFoundEntityException;
+import br.com.assembliescorp.resources.exceptions.UnableToVoteException;
 import br.com.assembliescorp.services.AssociateService;
 import br.com.assembliescorp.services.SendRabbitService;
 import br.com.assembliescorp.services.SessionService;
@@ -49,11 +50,7 @@ public class VotesServiceImpl implements VoteService {
 		AssociateEntity associate = associateService.findOne(voteDTO.idAssociate())
 				.orElseThrow(NotFoundEntityException::new);
 		
-//		Validação do CPF, conforme tarefa 1
-//		String retorno = cpfValidation.getValidationCpf(associate.getCpf());
-//		if(retorno.contains("UNABLE_TO_VOTE")) {
-//			throw new UnableToVoteException();
-//		}
+//		validationCpfVote(associate);
 		
 		SessionEntity session = sessionService.findSessionExpirated(voteDTO.idSession());
 		
@@ -61,6 +58,17 @@ public class VotesServiceImpl implements VoteService {
 		voteRepository.save(voteEntity);
 		log.info("VOTACAO DA SESSAO {} COMPUTADA COM SUCESSO DO ASSOCIADO", voteDTO.idSession(), voteDTO.idAssociate());
 		return new VoteDTO(voteEntity);
+	}
+	
+	/**
+	 * Valida se o associado está habilitado a votar
+	 * @param associate 
+	 */
+	private void validationCpfVote(String cpf) {
+		String retorno = cpfValidation.getValidationCpf(cpf);
+		if(retorno.contains("UNABLE_TO_VOTE")) {
+			throw new UnableToVoteException();
+		}
 	}
 
 	@Transactional
