@@ -22,10 +22,19 @@ public class RulingServiceImpl implements RulingService {
 		this.rulingRepository = rulingRepository;
 	}
 
+	/**
+	 * Método para listar pautas
+	 * @return lista
+	 */
 	public List<RulingListDTO> getList() {
 		return rulingRepository.findAll().stream().map(RulingListDTO::new).toList();
 	}
 
+	/**
+	 * Método para criar uma pauta
+	 * @param rulingCreateDTO Uma RulingCreateDTO
+	 * @return Uma pauta criada
+	 */
 	public RulingCreateDTO create(RulingCreateDTO rulingCreateDTO) {
 		var ruling = new RulingEntity(rulingCreateDTO);
 		rulingRepository.save(ruling);
@@ -33,6 +42,11 @@ public class RulingServiceImpl implements RulingService {
 		return new RulingCreateDTO(ruling);
 	}
 
+	/**
+	 * Método para buscar uma única pauta
+	 * @param idRuling Id de uma pauta
+	 * @return Retornará se encontrar ou não a pauta
+	 */
 	public Optional<RulingEntity> findOne(Long idRuling) {
 		return rulingRepository.findById(idRuling);
 	}	

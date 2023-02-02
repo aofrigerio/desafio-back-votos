@@ -24,6 +24,11 @@ public class AssociateServiceImpl implements AssociateService {
 		this.associateRepository = associateRepository;
 	}
 	
+	/**
+	 * Método para criar um associado
+	 * @param associateCreateDTO AssociadoDTO
+	 * @return O associado criado
+	 */
 	@Transactional
 	public AssociateCreateDTO create(AssociateCreateDTO associateCreateDTO){			
 		var associate = new AssociateEntity(associateCreateDTO);
@@ -32,10 +37,19 @@ public class AssociateServiceImpl implements AssociateService {
 		return new AssociateCreateDTO(associate);		
 	}
 
+	/**
+	 * Método para listar todos associados
+	 * @return uma lista de associados
+	 */
 	public List<AssociateListDTO> getList() {
 		return associateRepository.findAll().stream().map(AssociateListDTO::new).toList(); 	
 	}
 
+	/**
+	 * Método para buscar um único associado
+	 * @param idAssociate idAssociado
+	 * @return Retornará se encontrar ou não associado
+	 */
 	public Optional<AssociateEntity> findOne(Long idAssociate) {
 		return associateRepository.findById(idAssociate);
 	}

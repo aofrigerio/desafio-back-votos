@@ -1,6 +1,5 @@
 package br.com.assembliescorp.domain.dtos.ruling;
 
-import br.com.assembliescorp.domain.entities.AssociateEntity;
 import br.com.assembliescorp.domain.entities.RulingEntity;
 
 public record RulingListDTO(

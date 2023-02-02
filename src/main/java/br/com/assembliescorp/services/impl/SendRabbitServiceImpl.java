@@ -1,7 +1,6 @@
 package br.com.assembliescorp.services.impl;
 
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -20,13 +19,15 @@ public class SendRabbitServiceImpl implements SendRabbitService {
 	
 	private final RabbitTemplate rabbitTemplate;
 	
-	@Autowired
 	public SendRabbitServiceImpl(RabbitTemplate rabbitTemplate) {
 		this.rabbitTemplate = rabbitTemplate;
 	}
-
 	
-	public void sendRabbit(Object object) {
+	/**
+	 * Envia para o rabbit o resultado
+	 * @param object Json qualquer
+	 */
+	public void sendResultToRabbit(Object object) {
 		log.info("ENVIANDO RESULTADO PARA ROTA {} E TOPICO {}", routingKey, topicExchangeName);
 		rabbitTemplate.convertAndSend(topicExchangeName, routingKey, object);		
 	}

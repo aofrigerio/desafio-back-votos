@@ -2,7 +2,6 @@ package br.com.assembliescorp.services.impl;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -17,9 +16,7 @@ import br.com.assembliescorp.domain.entities.VoteEntity;
 import br.com.assembliescorp.domain.projections.VoteGroupProjection;
 import br.com.assembliescorp.domain.repositories.VoteRepository;
 import br.com.assembliescorp.resources.exceptions.NotFoundEntityException;
-import br.com.assembliescorp.resources.exceptions.UnableToVoteException;
 import br.com.assembliescorp.services.AssociateService;
-import br.com.assembliescorp.services.RulingService;
 import br.com.assembliescorp.services.SendRabbitService;
 import br.com.assembliescorp.services.SessionService;
 import br.com.assembliescorp.services.VoteService;
@@ -37,7 +34,6 @@ public class VotesServiceImpl implements VoteService {
 	private final SendRabbitService sendRabbitService;
 	private final CpfValidation cpfValidation;
 	
-	@Autowired
 	public VotesServiceImpl(VoteRepository voteRepository, AssociateService associateService,
 			SessionService sessionService, ObjectMapper objectMapper,
 			SendRabbitService sendRabbitService, CpfValidation cpfValidation) {
@@ -92,7 +88,7 @@ public class VotesServiceImpl implements VoteService {
 
 		sessionService.finishSession(session, votesJson);
 
-		sendRabbitService.sendRabbit(sendRabbitMessage);
+		sendRabbitService.sendResultToRabbit(sendRabbitMessage);
 		log.info(">>> FIM DA APURAÇÃO E VOTOS DA SESSAO {}", voteProcess.idSession());
 
 	}

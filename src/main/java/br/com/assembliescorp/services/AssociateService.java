@@ -9,8 +9,22 @@ import br.com.assembliescorp.domain.entities.AssociateEntity;
 
 public interface AssociateService {
 	
-	List<AssociateListDTO> getList();	
+	/**
+	 * Método para listar todos associados
+	 * @return uma lista de associados
+	 */
+	List<AssociateListDTO> getList();
+	/**
+	 * Método para criar um associado
+	 * @param associateCreateDTO AssociadoDTO
+	 * @return O associado criado
+	 */
 	AssociateCreateDTO create(AssociateCreateDTO associateCreateDTO);
+	/**
+	 * Método para buscar um único associado
+	 * @param idAssociate idAssociado
+	 * @return Retornará se encontrar ou não associado
+	 */
 	Optional<AssociateEntity> findOne(Long idAssociate);
 
 }

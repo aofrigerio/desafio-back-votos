@@ -27,10 +27,19 @@ public class SessionServiceImpl implements SessionService {
 		this.sessionRepository = sessionRepository;
 	}
 
+	/**
+	 * Retorna lista de sessões
+	 * @return Lista
+	 */
 	public List<SessionListDTO> getList() {
 		return sessionRepository.findAll().stream().map(SessionListDTO::new).toList();
 	}
 
+	/**
+	 * Cria uma sessão
+	 * @param sessionCreateDTO
+	 * @return SessãoDTO criada
+	 */
 	public SessionCreateDTO create(SessionCreateDTO sessionCreateDTO) {
 		var session = new SessionEntity(sessionCreateDTO);
 		if(sessionCreateDTO.minutes() == null) {
@@ -41,6 +50,11 @@ public class SessionServiceImpl implements SessionService {
 		return new SessionCreateDTO(session);
 	}
 
+	/**
+	 * Método para finalizar a sessão com a data e resultado
+	 * @param session Sessão entidade
+	 * @param jsonResult resultado em Json
+	 */
 	public void finishSession(SessionEntity session, String jsonResult) {	
 		session.setFinish(LocalDateTime.now());
 		session.setResult(jsonResult);
@@ -48,6 +62,11 @@ public class SessionServiceImpl implements SessionService {
 		log.info("SESSAO FINALIZADA COM SUCESSO: {}", session.getName());
 	}
 	
+	/**
+	 * Método para buscar uma sessão que ainda não está fechada
+	 * @param idSession
+	 * @return
+	 */
 	public SessionEntity findSessionNotClosed(Long idSession) {
 		SessionEntity session = findById(idSession).orElseThrow(NotFoundEntityException::new);
 		if(session.getFinish() != null) {
@@ -58,6 +77,11 @@ public class SessionServiceImpl implements SessionService {
 		return session;
 	}
 	
+	/**
+	 * Método para procurar uma sessão
+	 * @param idSession
+	 * @return Retorna ou não uma sessão
+	 */
 	public SessionEntity findSessionExpirated(Long idSession) {
 		SessionEntity session = findById(idSession).orElseThrow(NotFoundEntityException::new);
 		if(session.getBegin().plusMinutes(session.getMinutes()).isBefore(LocalDateTime.now())) {
@@ -67,6 +91,11 @@ public class SessionServiceImpl implements SessionService {
 		throw new NotFoundEntityException();
 	}
 
+	/**
+	 * Método para finalizar a sessão com a data e resultado
+	 * @param session Sessão entidade
+	 * @param jsonResult resultado em Json
+	 */
 	public Optional<SessionEntity> findById(Long idSession) {
 		return sessionRepository.findById(idSession);
 	}

@@ -2,6 +2,10 @@ package br.com.assembliescorp.services;
 
 public interface SendRabbitService {
 	
-	void sendRabbit(Object object);
+	/**
+	 * Envia para o rabbit o resultado
+	 * @param object Json qualquer
+	 */
+	void sendResultToRabbit(Object object);
 
 }
